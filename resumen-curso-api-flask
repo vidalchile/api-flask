@@ -1,0 +1,29 @@
+/******************************************************************************************************/
+LEVANTAR UN SERVIDOR CON FLASK
+/******************************************************************************************************/
+Crear entorno virtual
+python -m venv env
+
+Activar entorno virtual
+source env/bin/activate
+
+Creamos una carpeta la cual tendrá nuestra aplicación
+mkdir apli
+
+Crear archivo principal main.py
+
+Creamos un nueva carpeta llamada app que sera un modulo para eso es necesario crear el archivo __init__.py
+
+Instalar las dependencias de flask
+pip install flask
+
+Levantar servidor flask
+python main.py
+
+Crear archivo .gitignore
+touch .gitignore
+
+Crear archivo requirements
+pip freeze > requirements.txt
+
+
