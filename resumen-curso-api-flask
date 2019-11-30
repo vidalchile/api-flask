@@ -53,3 +53,10 @@ pip install Flask-SQLAlchemy
 Agregar en nuestro archivo de configuración los datos de nuestra base de datos
 
 Crear un nuevo folder app/models donde estaran todos nuestros modelos
+
+Crear modelo/tabla tareas
+
+Intalar dependencia para conectar con postgress
+pip install psycopg2-binary
+
+Select * from tasks;
