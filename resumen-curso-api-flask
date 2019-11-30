@@ -1,5 +1,5 @@
 /******************************************************************************************************/
-LEVANTAR UN SERVIDOR CON FLASK
+RESUMEN CURSO
 /******************************************************************************************************/
 Crear entorno virtual
 python -m venv env
@@ -26,4 +26,7 @@ touch .gitignore
 Crear archivo requirements
 pip freeze > requirements.txt
 
+Crear archivo de configuración
 
+Comando para eliminar los archivos .pyc
+find . -name "*.pyc" -exec git rm -f "{}" \;
