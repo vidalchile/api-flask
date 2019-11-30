@@ -8,7 +8,7 @@ Activar entorno virtual
 source env/bin/activate
 
 Creamos una carpeta la cual tendrá nuestra aplicación
-mkdir apli
+mkdir api
 
 Crear archivo principal main.py
 
