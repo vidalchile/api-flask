@@ -1,6 +1,7 @@
 /******************************************************************************************************/
-RESUMEN CURSO
+>>>> RESUMEN CURSO
 /******************************************************************************************************/
+
 Crear entorno virtual
 python -m venv env
 
@@ -30,3 +31,25 @@ Crear archivo de configuración
 
 Comando para eliminar los archivos .pyc
 find . -name "*.pyc" -exec git rm -f "{}" \;
+
+Conectar nuesta aplicación con el gestor de base de datos PostgreSQL
+
+ALTER USER postgres with encrypted password '123';
+
+Ingresar al gestor de base de datos
+sudo -u postgres psql
+
+Crear base de datos
+CREATE DATABASE api_flask;
+
+Utilizar base de datos
+\c api_flask
+
+Las tablas las vamos a crear con el ORM
+
+Intalar SQLAlchemy
+pip install Flask-SQLAlchemy
+
+Agregar en nuestro archivo de configuración los datos de nuestra base de datos
+
+Crear un nuevo folder app/models donde estaran todos nuestros modelos
