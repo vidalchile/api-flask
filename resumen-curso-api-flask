@@ -60,3 +60,18 @@ Intalar dependencia para conectar con postgress
 pip install psycopg2-binary
 
 Select * from tasks;
+
+....
+
+Creando una clave SSH (Github)
+ls -al ~/.ssh
+ssh-keygen -t rsa -b 4096 -C "cris.vidal04@gmail.com"
+$ eval "$(ssh-agent -s)"
+> Agent pid 59566
+ssh-add ~/.ssh/id_rsa
+sudo apt-get install xclip
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
+pip install requirements.txt
+pip install -r requirements.txt
+pip install --upgrade -r requirements.txt
