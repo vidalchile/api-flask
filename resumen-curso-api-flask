@@ -71,8 +71,7 @@ Manejo de respuestas del servidor
 Crear registro, insertar registro
 Listar registros
 Buscar registro
-
-....
+Responder con un error al cliente not_found 404
 
 Creando una clave SSH (Github)
 ls -al ~/.ssh

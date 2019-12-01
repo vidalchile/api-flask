@@ -8,3 +8,12 @@ def response(data):
             'data': data
         }
     ), 200
+
+def not_found():
+    return jsonify(
+        {
+            'success': False,
+            'data': {},
+            'message': 'Resource not found'
+        }
+    ), 404
