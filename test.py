@@ -38,6 +38,11 @@ class TestApi(unittest.TestCase):
         response =  self.client.get(path=self.path)
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(len(data['data']), 3)
+    
+    def test_not_found(self):
+        new_path = self.path + '/102030'
+        response =  self.client.get(path=new_path, content_type=self.content_type)
+        self.assertEqual(response.status_code, 404)
         
 if __name__ == '__main__':
     unittest.main()
