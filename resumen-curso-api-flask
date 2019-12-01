@@ -76,6 +76,12 @@ Responder con un error al cliente not_found 404
 Test unitarios
 Crear base de datos para los Test
 
+Crear test unitarios
+Crear test unitarios para respuestas 404
+
+Codigo para ver detalle de los resultados de los test unitarios
+python test.py -v
+
 
 
 Creando una clave SSH (Github)
