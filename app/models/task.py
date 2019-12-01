@@ -1,4 +1,5 @@
 from . import db
+from sqlalchemy.event  import listen
 
 class Task(db.Model):
     
@@ -14,3 +15,30 @@ class Task(db.Model):
     # Sobreescribir metodo, retornar el titulo de la tarea
     def __str__(self):
         return self.title
+
+def insert_tasks(*args, **kwargs):
+    db.session.add(
+        Task(
+            title='titulo 1',
+            description='descripcion 1',
+            deadline='2019-12-12 12:00:00'
+        )
+    )
+    db.session.add(
+        Task(
+            title='titulo 2',
+            description='descripcion 2',
+            deadline='2019-12-12 12:00:00'
+        )
+    )
+    db.session.add(
+        Task(
+            title='titulo 3',
+            description='descripcion 3',
+            deadline='2019-12-12 12:00:00'
+        )
+    )
+    db.session.commit()
+
+# Despues de que la tabla Task sea creada, ingresamos nuevos registros
+listen(Task.__table__, 'after_create', insert_tasks)
