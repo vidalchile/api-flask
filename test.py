@@ -33,6 +33,11 @@ class TestApi(unittest.TestCase):
         task_id=data['data']['id']
 
         self.assertEqual(task_id, 1)
-
+    
+    def test_len_tasks(self):
+        response =  self.client.get(path=self.path)
+        data = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(len(data['data']), 3)
+        
 if __name__ == '__main__':
     unittest.main()
