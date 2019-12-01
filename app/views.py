@@ -12,8 +12,9 @@ def get_tasks():
     return response(list_tasks)
 
 @api_v1.route('/tasks/<id>', methods=['GET'])
-def get_task():
-    pass
+def get_task(id):
+    task =  Task.query.filter_by(id=id).first()
+    return response(task.serialize())
 
 @api_v1.route('/tasks', methods=['POST'])
 def create_tasks():

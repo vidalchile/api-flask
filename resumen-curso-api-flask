@@ -69,10 +69,8 @@ Crear enpoints (GET, POST, PUT, DELETE)
 Manejo de respuestas del servidor
 
 Crear registro, insertar registro
-
 Listar registros
-
-
+Buscar registro
 
 ....
 
