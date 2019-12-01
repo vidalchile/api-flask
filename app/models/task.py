@@ -15,6 +15,14 @@ class Task(db.Model):
     # Sobreescribir metodo, retornar el titulo de la tarea
     def __str__(self):
         return self.title
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'deadline': self.deadline
+        }
 
 def insert_tasks(*args, **kwargs):
     db.session.add(
