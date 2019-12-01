@@ -73,6 +73,11 @@ Listar registros
 Buscar registro
 Responder con un error al cliente not_found 404
 
+Test unitarios
+Crear base de datos para los Test
+
+
+
 Creando una clave SSH (Github)
 ls -al ~/.ssh
 ssh-keygen -t rsa -b 4096 -C "cris.vidal04@gmail.com"
