@@ -1,1 +1,6 @@
+CREAR TAREA
 curl -i -H "Content-type: application/json" -X POST -d '{"title":"Nueva Tarea", "description":"Nueva Description", "deadline":"2019-12-12 12:00:00"}' http://127.0.0.1:5000/api/v1/tasks
+
+EDITAR TAREA
+curl -i -H "Content-type: application/json" -X PUT -d '{"title":"Cambio nombre tarea"}' http://127.0.0.1:5000/api/v1/tasks/4
+
