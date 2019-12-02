@@ -62,5 +62,15 @@ class TestApi(unittest.TestCase):
         response = self.client.put(path=new_path, data=json.dumps(data), content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
+        data_response = json.loads(response.data.decode('utf-8'))
+        title = data_response['data']['title']
+        self.assertEqual(title, data['title'])
+
+    def test_bad_request_update_task(self):
+        new_path = self.path + '/102030'
+        data = {"title":"Editar titulo"}
+        response =  self.client.put(path=new_path, content_type=self.content_type)
+        self.assertEqual(response.status_code, 404)
+
 if __name__ == '__main__':
     unittest.main()
