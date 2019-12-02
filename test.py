@@ -25,13 +25,11 @@ class TestApi(unittest.TestCase):
     
     def test_get_first_tas(self):
         new_path = self.path + '/1'
-        
         response =  self.client.get(path=new_path, content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
         data = json.loads(response.data.decode('utf-8'))
         task_id=data['data']['id']
-
         self.assertEqual(task_id, 1)
     
     def test_len_tasks(self):
@@ -57,6 +55,12 @@ class TestApi(unittest.TestCase):
         data = {"description":"Nueva Description", "deadline":"2019-12-12 12:00:00"}
         response = self.client.post(path=self.path, data=json.dumps(data), content_type=self.content_type)
         self.assertEqual(response.status_code, 400)
+
+    def test_update_task(self):
+        new_path = self.path + '/1'
+        data = {"title":"Editar titulo"}
+        response = self.client.put(path=new_path, data=json.dumps(data), content_type=self.content_type)
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
