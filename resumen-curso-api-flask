@@ -82,7 +82,10 @@ Crear test unitarios para respuestas 404
 Codigo para ver detalle de los resultados de los test unitarios
 python test.py -v
 
+Guardar un registro tarea en nuestra DB
+Crear archivo txt para ingresar un nuevo registro mediante Curl
 
+---
 
 Creando una clave SSH (Github)
 ls -al ~/.ssh

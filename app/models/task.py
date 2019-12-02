@@ -12,6 +12,21 @@ class Task(db.Model):
     deadline = db.Column(db.DateTime(), nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False, default=db.func.current_timestamp())
 
+    # Nuevo metodo de clase
+    @classmethod
+    def new(cls, title, description, deadline):
+        # Retornara un nuevo objeto tarea
+        return Task(title=title, description=description, deadline=deadline)
+
+    # Guardar un objeto
+    def save(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+            return True
+        except:
+            return False
+
     # Sobreescribir metodo, retornar el titulo de la tarea
     def __str__(self):
         return self.title
