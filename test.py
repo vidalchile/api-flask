@@ -43,6 +43,15 @@ class TestApi(unittest.TestCase):
         new_path = self.path + '/102030'
         response =  self.client.get(path=new_path, content_type=self.content_type)
         self.assertEqual(response.status_code, 404)
-        
+    
+    def test_create_task(self):
+        data = {"title":"Nueva Tarea", "description":"Nueva Description", "deadline":"2019-12-12 12:00:00"}
+        response = self.client.post(path=self.path, data=json.dumps(data), content_type=self.content_type)
+        self.assertEqual(response.status_code, 200)
+
+        data = json.loads(response.data.decode('utf-8'))
+        task_id = data['data']['id']
+        self.assertEqual(task_id, 4)
+
 if __name__ == '__main__':
     unittest.main()
