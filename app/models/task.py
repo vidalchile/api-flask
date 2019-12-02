@@ -27,10 +27,19 @@ class Task(db.Model):
         except:
             return False
 
+    def delete(self):
+        try:
+            db.session.delete(self)
+            db.session.commit()
+            return True
+        except:
+            return False
+
     # Sobreescribir metodo, retornar el titulo de la tarea
     def __str__(self):
         return self.title
     
+    # Persistir
     def serialize(self):
         return {
             'id': self.id,
