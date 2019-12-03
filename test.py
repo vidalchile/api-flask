@@ -11,6 +11,8 @@ class TestApi(unittest.TestCase):
         self.client = self.app.test_client()
         self.content_type = 'application/json'
         self.path='http://127.0.0.1:5000/api/v1/tasks'
+        self.path_first_task = self.path + '/1'
+        self.path_fake_task = self.path + '/100'
 
     def tearDown(self):
         with self.app.app_context():
@@ -19,17 +21,19 @@ class TestApi(unittest.TestCase):
     def test_one_equals_one(self):
         self.assertEqual(1, 1)
 
+    def get_id_task(self, response):
+        data = json.loads(response.data.decode('utf-8'))
+        return data['data']['id']
+
     def test_get_all_tasks(self):
         response = self.client.get(path=self.path)
         self.assertEqual(response.status_code, 200)
     
     def test_get_first_tas(self):
-        new_path = self.path + '/1'
-        response =  self.client.get(path=new_path, content_type=self.content_type)
+        response =  self.client.get(path=self.path_first_task, content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
-        data = json.loads(response.data.decode('utf-8'))
-        task_id=data['data']['id']
+        task_id = self.get_id_task(response)
         self.assertEqual(task_id, 1)
     
     def test_len_tasks(self):
@@ -38,8 +42,7 @@ class TestApi(unittest.TestCase):
         self.assertEqual(len(data['data']), 3)
     
     def test_not_found(self):
-        new_path = self.path + '/102030'
-        response =  self.client.get(path=new_path, content_type=self.content_type)
+        response =  self.client.get(path=self.path_fake_task, content_type=self.content_type)
         self.assertEqual(response.status_code, 404)
     
     def test_create_task(self):
@@ -47,8 +50,7 @@ class TestApi(unittest.TestCase):
         response = self.client.post(path=self.path, data=json.dumps(data), content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
-        data = json.loads(response.data.decode('utf-8'))
-        task_id = data['data']['id']
+        task_id = self.get_id_task(response)
         self.assertEqual(task_id, 4)
     
     def test_validate_empty_attribute_title(self):
@@ -56,10 +58,9 @@ class TestApi(unittest.TestCase):
         response = self.client.post(path=self.path, data=json.dumps(data), content_type=self.content_type)
         self.assertEqual(response.status_code, 400)
 
-    def test_update_task(self):
-        new_path = self.path + '/1'
+    def test_update_task(self):        
         data = {"title":"Editar titulo"}
-        response = self.client.put(path=new_path, data=json.dumps(data), content_type=self.content_type)
+        response = self.client.put(path=self.path_first_task, data=json.dumps(data), content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
         data_response = json.loads(response.data.decode('utf-8'))
@@ -67,17 +68,15 @@ class TestApi(unittest.TestCase):
         self.assertEqual(title, data['title'])
 
     def test_bad_request_update_task(self):
-        new_path = self.path + '/102030'
         data = {"title":"Editar titulo"}
-        response =  self.client.put(path=new_path, content_type=self.content_type)
+        response =  self.client.put(path=self.path_fake_task, content_type=self.content_type)
         self.assertEqual(response.status_code, 404)
 
     def test_delete_task(self):
-        new_path = self.path + '/1'
-        response =  self.client.delete(path=new_path, content_type=self.content_type)
+        response =  self.client.delete(path=self.path_first_task, content_type=self.content_type)
         self.assertEqual(response.status_code, 200)
 
-        response_get =  self.client.get(path=new_path, content_type=self.content_type)
+        response_get =  self.client.get(path=self.path_first_task, content_type=self.content_type)
         self.assertEqual(response_get.status_code, 404)
 
 if __name__ == '__main__':
