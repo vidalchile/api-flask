@@ -1,4 +1,5 @@
 from . import db
+from sqlalchemy import desc, asc
 from sqlalchemy.event  import listen
 
 class Task(db.Model):
@@ -34,6 +35,15 @@ class Task(db.Model):
             return True
         except:
             return False
+
+    # Paginación
+    @classmethod
+    def get_by_page(cls, order, actual_page, elements_per_page = 10):
+        # Vamos a obtener un objeto paginate
+        # pero con items, obtenemos el listado de tareas
+        # Vamos a ordernar nuestros registros
+        sort = desc(Task.id) if order == 'desc' else asc(Task.id)
+        return Task.query.order_by(sort).paginate(actual_page, elements_per_page).items
 
     # Sobreescribir metodo, retornar el titulo de la tarea
     def __str__(self):

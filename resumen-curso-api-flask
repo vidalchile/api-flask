@@ -90,10 +90,8 @@ Eliminar un registro de nuestra DB
 
 Crear test unitarios para nuestras acciones
 
-
-
+Crear paginacion
 ---
-
 Creando una clave SSH (Github)
 ls -al ~/.ssh
 ssh-keygen -t rsa -b 4096 -C "cris.vidal04@gmail.com"

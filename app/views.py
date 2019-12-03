@@ -11,10 +11,19 @@ api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 @api_v1.route('/tasks', methods=['GET'])
 def get_tasks():
     
-    # Obtener todos los objetos
-    tasks = Task.query.all() # select * from tasks;
-    list_tasks = [ task.serialize() for task in tasks]
+    # Obtener pagina actual
+    actual_page = int(request.args.get('page', 1))
+    
+    # Ordenar registros
+    order = request.args.get('order', 'desc')
 
+    # Obtener datos paginados
+    tasks = Task.get_by_page(order, actual_page)
+    
+    # Obtener todos los objetos
+    # tasks = Task.query.all() # select * from tasks;
+    
+    list_tasks = [ task.serialize() for task in tasks]
     return response(list_tasks)
 
 @api_v1.route('/tasks/<id>', methods=['GET'])
