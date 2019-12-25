@@ -8,6 +8,19 @@ from .models.task import Task
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
+def funcion_a(function_b):
+    def funcion_c(*args, **kwargs):
+        # Si el parametro ID no existe retornaremos 0
+        id = kwargs.get('id',0);
+        # Obtener la tarea
+        task = Task.query.filter_by(id=id).first();
+        if task is None:
+            return not_found()
+        return function_b(task)
+    # Para que el decorador pueda ser utilizado por distintas funciones (renombrar funcion)
+    funcion_c.__name__ = function_b.__name__
+    return funcion_c
+
 @api_v1.route('/tasks', methods=['GET'])
 def get_tasks():
     
@@ -27,15 +40,8 @@ def get_tasks():
     return response(list_tasks)
 
 @api_v1.route('/tasks/<id>', methods=['GET'])
-def get_task(id):
-
-    # Obtener objeto segun su ID
-    task =  Task.query.filter_by(id=id).first()
-    
-    # Validar existencia objeto
-    if task is None:
-        return (not_found())
-    
+@funcion_a
+def get_task(task):
     return response(task.serialize())
 
 @api_v1.route('/tasks', methods=['POST'])
@@ -64,15 +70,8 @@ def create_tasks():
     return bad_request()
 
 @api_v1.route('/tasks/<id>', methods=['PUT'])
-def update_tasks(id):
-    
-    # Obtener objeto
-    task = Task.query.filter_by(id=id).first()
-
-    # Validar existencia objeto
-    if task is None:
-        return (not_found())
-
+@funcion_a
+def update_tasks(task):
     # Obtener json cliente
     json = request.get_json(force=True)
 
@@ -88,16 +87,10 @@ def update_tasks(id):
     return bad_request()
 
 @api_v1.route('/tasks/<id>', methods=['DELETE'])
-def delete_tasks(id):
-    
-    task = Task.query.filter_by(id=id).first()
-
-    if task is None:
-        return (not_found())
-
+@funcion_a
+def delete_tasks(task):
     if task.delete():
         return response(task.serialize())
-    
     return bad_request()
 
 

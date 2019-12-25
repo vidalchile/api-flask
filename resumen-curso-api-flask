@@ -91,6 +91,8 @@ Eliminar un registro de nuestra DB
 Crear test unitarios para nuestras acciones
 
 Crear paginacion
+
+Generar un decoradores
 ---
 Creando una clave SSH (Github)
 ls -al ~/.ssh
