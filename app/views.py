@@ -5,6 +5,7 @@ from .responses import response
 from .responses import not_found
 from .responses import bad_request
 from .models.task import Task
+from .schemas import task_schema, tasks_schema
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -36,13 +37,13 @@ def get_tasks():
     # Obtener todos los objetos
     # tasks = Task.query.all() # select * from tasks;
     
-    list_tasks = [ task.serialize() for task in tasks]
-    return response(list_tasks)
+    # list_tasks = [ task_schema.dump(task) for task in tasks]
+    return response(tasks_schema.dump(tasks))
 
 @api_v1.route('/tasks/<id>', methods=['GET'])
 @funcion_a
 def get_task(task):
-    return response(task.serialize())
+    return response(task_schema.dump(task))
 
 @api_v1.route('/tasks', methods=['POST'])
 def create_tasks():
@@ -65,7 +66,7 @@ def create_tasks():
     
     # Persistir y guardar objeto
     if new_task.save():
-        return response(new_task.serialize())
+        return response(task_schema.dump(new_task))
     
     return bad_request()
 
@@ -82,7 +83,7 @@ def update_tasks(task):
 
     # Persistir cambios
     if task.save():
-        return response(task.serialize())
+        return response(task_schema.dump(task))
 
     return bad_request()
 
@@ -90,7 +91,7 @@ def update_tasks(task):
 @funcion_a
 def delete_tasks(task):
     if task.delete():
-        return response(task.serialize())
+        return response(task_schema.dump(task))
     return bad_request()
 
 
