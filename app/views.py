@@ -5,7 +5,7 @@ from .responses import response
 from .responses import not_found
 from .responses import bad_request
 from .models.task import Task
-from .schemas import task_schema, tasks_schema
+from .schemas import task_schema, tasks_schema, params_task_schema
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -50,16 +50,20 @@ def create_tasks():
 
     # Objeto json que el cliente nos envia
     json  = request.get_json(force=True)
+    error = params_task_schema.validate(json)
+    if error:
+        print(error)
+        return bad_request(error)
 
     # Si el cliente no envio el atributo cliente
-    if json.get('title') is None or len(json['title']) > 50:
-        return bad_request()
+    #if json.get('title') is None or len(json['title']) > 50:
+    #    return bad_request()
     
-    if json.get('description') is None:
-        return bad_request()
+    #if json.get('description') is None:
+    #    return bad_request()
 
-    if json.get('deadline') is None:
-        return bad_request()
+    #if json.get('deadline') is None:
+    #    return bad_request()
     
     # Crear nuevo objeto
     new_task = Task.new(json['title'], json['description'], json['deadline'])
